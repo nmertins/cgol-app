@@ -31,7 +31,6 @@ fn main() {
     while let Some(e) = events.next(&mut window) {
         if let Some(args) = e.render_args() {
             gl.draw(args.viewport(), |c, g| {
-                graphics::clear([1.0, 1.0, 1.0, 1.0], g);
                 view.draw(&None, &c, g);
             });
         }

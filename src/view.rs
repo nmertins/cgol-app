@@ -5,8 +5,8 @@ use cgol::GameState;
 
 #[derive(Debug)]
 pub struct CgolViewSettings {
-    position: [f64; 2],
-    size: f64,
+    number_of_cells: i32,
+    grid_thickness: f64,
     background_color: Color,
     grid_line_color: Color,
     cell_color: Color,
@@ -15,11 +15,11 @@ pub struct CgolViewSettings {
 impl CgolViewSettings {
     pub fn new() -> CgolViewSettings {
         CgolViewSettings {
-            position: [10.0; 2],
-            size: 400.0,
+            number_of_cells: 100,
+            grid_thickness: 0.5,
             background_color: [1.0; 4],
-            grid_line_color: [0.0; 4],
-            cell_color: [1.0; 4],
+            grid_line_color: [0.0, 0.0, 0.0, 1.0],
+            cell_color: [0.0, 0.0, 0.0, 1.0],
         }
     }
 }
@@ -33,5 +33,31 @@ impl CgolView {
         CgolView { settings }
     }
 
-    pub fn draw<G: Graphics>(&self, game_state: &Option<GameState>, c: &Context, g: &mut G) {}
+    pub fn draw<G: Graphics>(&self, game_state: &Option<GameState>, c: &Context, g: &mut G) {
+        let settings = &self.settings;
+
+        graphics::clear(settings.background_color, g);
+
+        if let Some(v) = c.viewport {
+            let cell_edge = graphics::Line::new(settings.grid_line_color, settings.grid_thickness);
+
+            for i in 1..settings.number_of_cells {
+                let y1 =
+                    (i as f64 / settings.number_of_cells as f64 * v.window_size[1] as f64) as f64;
+                let y2 =
+                    (i as f64 / settings.number_of_cells as f64 * v.window_size[1] as f64) as f64;
+
+                let h_line = [0.0, y1, v.rect[2] as f64, y2];
+                cell_edge.draw(h_line, &c.draw_state, c.transform, g);
+
+                let x1 =
+                    (i as f64 / settings.number_of_cells as f64 * v.window_size[0] as f64) as f64;
+                let x2 =
+                    (i as f64 / settings.number_of_cells as f64 * v.window_size[0] as f64) as f64;
+
+                let v_line = [x1, 0.0, x2, v.rect[3] as f64];
+                cell_edge.draw(v_line, &c.draw_state, c.transform, g);
+            }
+        }
+    }
 }
