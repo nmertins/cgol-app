@@ -37,7 +37,10 @@ impl CgolView {
         let settings = &self.settings;
 
         graphics::clear(settings.background_color, g);
+        self.draw_grid_lines(settings, c, g);
+    }
 
+    fn draw_grid_lines<G: Graphics>(&self, settings: &CgolViewSettings, c: &Context, g: &mut G) {
         if let Some(v) = c.viewport {
             let cell_edge = graphics::Line::new(settings.grid_line_color, settings.grid_thickness);
 
