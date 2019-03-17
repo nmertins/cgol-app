@@ -50,7 +50,7 @@ impl CgolView {
                 let y2 =
                     (i as f64 / settings.number_of_cells as f64 * v.window_size[1] as f64) as f64;
 
-                let h_line = [0.0, y1, v.rect[2] as f64, y2];
+                let h_line = [0.0, y1, v.window_size[0] as f64, y2];
                 cell_edge.draw(h_line, &c.draw_state, c.transform, g);
 
                 let x1 =
@@ -58,7 +58,7 @@ impl CgolView {
                 let x2 =
                     (i as f64 / settings.number_of_cells as f64 * v.window_size[0] as f64) as f64;
 
-                let v_line = [x1, 0.0, x2, v.rect[3] as f64];
+                let v_line = [x1, 0.0, x2, v.window_size[1] as f64];
                 cell_edge.draw(v_line, &c.draw_state, c.transform, g);
             }
         }
