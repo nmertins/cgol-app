@@ -18,7 +18,7 @@ impl CgolViewSettings {
             number_of_cells: 100,
             grid_thickness: 0.5,
             background_color: [1.0; 4],
-            grid_line_color: [0.0, 0.0, 0.0, 1.0],
+            grid_line_color: [0.9, 0.9, 0.9, 1.0],
             cell_color: [0.0, 0.0, 0.0, 1.0],
         }
     }

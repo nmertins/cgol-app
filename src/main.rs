@@ -18,7 +18,7 @@ use view::{CgolView, CgolViewSettings};
 
 fn main() {
     let opengl = OpenGL::V3_2;
-    let settings = WindowSettings::new("Game of Life", [512, 512])
+    let settings = WindowSettings::new("Game of Life", [700, 700])
         .opengl(opengl)
         .exit_on_esc(true);
     let mut window: GlutinWindow = settings.build().expect("Could not create window");
