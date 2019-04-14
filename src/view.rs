@@ -38,6 +38,9 @@ impl CgolView {
 
         graphics::clear(settings.background_color, g);
         self.draw_grid_lines(settings, c, g);
+        if let Some(state) = game_state {
+            self.fill_live_cells(settings, state, c, g);
+        }
     }
 
     fn draw_grid_lines<G: Graphics>(&self, settings: &CgolViewSettings, c: &Context, g: &mut G) {
@@ -62,5 +65,9 @@ impl CgolView {
                 cell_edge.draw(v_line, &c.draw_state, c.transform, g);
             }
         }
+    }
+
+    fn fill_live_cells(&self, settings: &CgolViewSettings, game_state: &GameState, c: &Context, g: &mut G) {
+
     }
 }
