@@ -5,6 +5,7 @@ extern crate opengl_graphics;
 extern crate piston;
 
 mod view;
+mod controller;
 
 use piston::event_loop::{EventSettings, Events};
 use piston::input::RenderEvent;
@@ -15,6 +16,7 @@ use glutin_window::GlutinWindow;
 use opengl_graphics::{GlGraphics, OpenGL};
 
 use view::{CgolView, CgolViewSettings};
+use crate::controller::CgolController;
 
 fn main() {
     let opengl = OpenGL::V3_2;
@@ -27,9 +29,11 @@ fn main() {
 
     let view_settings = CgolViewSettings::new();
     let view = CgolView::new(view_settings);
+    let mut controller = CgolController{};
 
     while let Some(e) = events.next(&mut window) {
         if let Some(args) = e.render_args() {
+            controller.event(&e);
             gl.draw(args.viewport(), |c, g| {
                 view.draw(&None, &c, g);
             });
