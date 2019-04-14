@@ -1,0 +1,3 @@
+[submodule "cgol-rs"]
+	path = cgol-rs
+	url = git@github.com:nmertins/cgol-rs.git
