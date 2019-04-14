@@ -67,7 +67,7 @@ impl CgolView {
         }
     }
 
-    fn fill_live_cells(&self, settings: &CgolViewSettings, game_state: &GameState, c: &Context, g: &mut G) {
+    fn fill_live_cells<G: Graphics>(&self, settings: &CgolViewSettings, game_state: &GameState, c: &Context, g: &mut G) {
 
     }
 }
