@@ -5,7 +5,7 @@ use cgol::GameState;
 
 #[derive(Debug)]
 pub struct CgolViewSettings {
-    cells_per_row: i32,
+    cells_per_row: usize,
     grid_thickness: f64,
     background_color: Color,
     grid_line_color: Color,
@@ -21,6 +21,11 @@ impl CgolViewSettings {
             grid_line_color: [0.9, 0.9, 0.9, 1.0],
             cell_color: [0.0, 0.0, 0.0, 1.0],
         }
+    }
+
+    pub fn cells_per_row(mut self, cells_per_row: usize) -> Self {
+        self.cells_per_row = cells_per_row;
+        self
     }
 }
 

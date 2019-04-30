@@ -17,6 +17,7 @@ use opengl_graphics::{GlGraphics, OpenGL};
 
 use view::{CgolView, CgolViewSettings};
 use crate::controller::CgolController;
+use cgol::{GameOfLife, GameError};
 
 fn main() {
     let opengl = OpenGL::V3_2;
@@ -27,7 +28,14 @@ fn main() {
     let mut events = Events::new(EventSettings::new());
     let mut gl = GlGraphics::new(opengl);
 
-    let view_settings = CgolViewSettings::new();
+    let mut game = GameOfLife::new();
+    if let Err(e) = game.set_state("resources/initial.state") {
+        panic!(e)
+    }
+    let (rows, columns) = game.get_state().unwrap().get_dimensions();
+
+    let view_settings = CgolViewSettings::new()
+        .cells_per_row(rows);
     let view = CgolView::new(view_settings);
     let mut controller = CgolController{};
 
