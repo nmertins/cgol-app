@@ -1,5 +1,5 @@
 use graphics::types::Color;
-use graphics::{Context, Graphics};
+use graphics::{Context, Graphics, Rectangle, DrawState};
 
 use cgol::GameState;
 
@@ -38,14 +38,12 @@ impl CgolView {
         CgolView { settings }
     }
 
-    pub fn draw<G: Graphics>(&self, game_state: &Option<GameState>, c: &Context, g: &mut G) {
+    pub fn draw<G: Graphics>(&self, game_state: &GameState, c: &Context, g: &mut G) {
         let settings = &self.settings;
 
         graphics::clear(settings.background_color, g);
         self.draw_grid_lines(settings, c, g);
-        if let Some(state) = game_state {
-            self.fill_live_cells(settings, state, c, g);
-        }
+        self.fill_live_cells(settings, game_state, c, g);
     }
 
     fn draw_grid_lines<G: Graphics>(&self, settings: &CgolViewSettings, c: &Context, g: &mut G) {
@@ -73,6 +71,24 @@ impl CgolView {
     }
 
     fn fill_live_cells<G: Graphics>(&self, settings: &CgolViewSettings, game_state: &GameState, c: &Context, g: &mut G) {
+        if let Some(viewport) = c.viewport {
+            let window_width = viewport.window_size[0];
+            let window_height = viewport.window_size[1];
 
+            let cell_width = window_width/settings.cells_per_row as f64;
+            let cell_height = window_height/settings.cells_per_row as f64;
+
+            for y in 0..settings.cells_per_row {
+                for x in 0..settings.cells_per_row {
+                    if game_state.get_cell_state(x, y) {
+                        let cell_x = x as f64 * cell_width;
+                        let cell_y = y as f64 * cell_height;
+
+                        let cell = [cell_x, cell_y, cell_width, cell_height];
+                        Rectangle::new(settings.cell_color).draw(cell, &c.draw_state, c.transform, g);
+                    }
+                }
+            }
+        }
     }
 }

@@ -41,7 +41,7 @@ fn main() {
         if let Some(args) = e.render_args() {
             controller.event(&e);
             gl.draw(args.viewport(), |c, g| {
-                view.draw(&None, &c, g);
+                view.draw(game.get_state(), &c, g);
             });
         }
     }
