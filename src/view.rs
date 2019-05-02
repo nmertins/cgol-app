@@ -50,22 +50,25 @@ impl CgolView {
         if let Some(v) = c.viewport {
             let cell_edge = graphics::Line::new(settings.grid_line_color, settings.grid_thickness);
 
+            let window_width = v.window_size[0];
+            let window_height = v.window_size[1];
+
             for i in 1..settings.cells_per_row {
                 let y1 =
-                    (i as f64 / settings.cells_per_row as f64 * v.window_size[1] as f64) as f64;
+                    i as f64 / settings.cells_per_row as f64 * window_height;
                 let y2 =
-                    (i as f64 / settings.cells_per_row as f64 * v.window_size[1] as f64) as f64;
+                    i as f64 / settings.cells_per_row as f64 * window_height;
 
-                let h_line = [0.0, y1, v.window_size[0] as f64, y2];
-                cell_edge.draw(h_line, &c.draw_state, c.transform, g);
+                let horizontal_line = [0.0, y1, window_width, y2];
+                cell_edge.draw(horizontal_line, &c.draw_state, c.transform, g);
 
                 let x1 =
-                    (i as f64 / settings.cells_per_row as f64 * v.window_size[0] as f64) as f64;
+                    i as f64 / settings.cells_per_row as f64 * window_width;
                 let x2 =
-                    (i as f64 / settings.cells_per_row as f64 * v.window_size[0] as f64) as f64;
+                    i as f64 / settings.cells_per_row as f64 * window_width;
 
-                let v_line = [x1, 0.0, x2, v.window_size[1] as f64];
-                cell_edge.draw(v_line, &c.draw_state, c.transform, g);
+                let vertical_line = [x1, 0.0, x2, window_height];
+                cell_edge.draw(vertical_line, &c.draw_state, c.transform, g);
             }
         }
     }
