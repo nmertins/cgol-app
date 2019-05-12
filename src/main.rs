@@ -21,21 +21,22 @@ use cgol::{GameOfLife, GameOfLifeSettings, GameError};
 
 fn main() {
     let opengl = OpenGL::V3_2;
-    let settings = WindowSettings::new("Game of Life", [700, 700])
+    let window_settings = WindowSettings::new("Game of Life", [700, 700])
         .opengl(opengl)
         .exit_on_esc(true);
-    let mut window: GlutinWindow = settings.build().expect("Could not create window");
+    let mut window: GlutinWindow = window_settings.build().expect("Could not create window");
     let mut events = Events::new(EventSettings::new());
     let mut gl = GlGraphics::new(opengl);
 
-    let settings = GameOfLifeSettings::from_file("resources/initial.state");
-    let mut game = GameOfLife::new(settings.unwrap());
-    let (rows, columns) = game.get_state().get_dimensions();
+    let game_settings = GameOfLifeSettings::from_file("resources/initial.state").unwrap();
 
+    let (rows, _) = game_settings.get_dimensions();
     let view_settings = CgolViewSettings::new()
         .cells_per_row(rows);
     let view = CgolView::new(view_settings);
     let mut controller = CgolController{};
+
+    let mut game = GameOfLife::new(game_settings);
 
     while let Some(e) = events.next(&mut window) {
         if let Some(args) = e.render_args() {
