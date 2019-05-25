@@ -16,7 +16,7 @@ use glutin_window::GlutinWindow;
 use opengl_graphics::{GlGraphics, OpenGL};
 
 use view::{CgolView, CgolViewSettings};
-use crate::controller::CgolController;
+use controller::CgolController;
 use cgol::GameOfLifeSettings;
 
 fn main() {
