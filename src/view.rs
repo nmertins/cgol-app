@@ -1,5 +1,5 @@
 use graphics::types::Color;
-use graphics::{Context, Graphics, Rectangle, DrawState};
+use graphics::{Context, Graphics, Rectangle};
 
 use cgol::GameState;
 
