@@ -7,9 +7,9 @@ extern crate piston;
 mod view;
 mod controller;
 
-use piston::event_loop::{EventSettings, Events};
-use piston::input::RenderEvent;
+use piston::event_loop::{EventSettings, Events, EventLoop};
 use piston::window::WindowSettings;
+use piston::input::{UpdateEvent, RenderEvent};
 
 use glutin_window::GlutinWindow;
 
@@ -25,7 +25,9 @@ fn main() {
         .opengl(opengl)
         .exit_on_esc(true);
     let mut window: GlutinWindow = window_settings.build().expect("Could not create window");
-    let mut events = Events::new(EventSettings::new());
+    let event_settings = EventSettings::new()
+        .ups(1);
+    let mut events = Events::new(event_settings);
     let mut gl = GlGraphics::new(opengl);
 
     let game_settings = GameOfLifeSettings::from_file("resources/initial.state").unwrap();
@@ -37,8 +39,11 @@ fn main() {
     let mut controller = CgolController::new(game_settings);
 
     while let Some(e) = events.next(&mut window) {
+        if let Some(args) = e.update_args() {
+            controller.update(args);
+        }
+
         if let Some(args) = e.render_args() {
-            controller.event(&e);
             gl.draw(args.viewport(), |c, g| {
                 view.draw(controller.get_state(), &c, g);
             });

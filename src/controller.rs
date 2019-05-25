@@ -1,4 +1,4 @@
-use piston::input::GenericEvent;
+use piston::input::UpdateArgs;
 
 use cgol::{GameOfLife, GameOfLifeSettings, GameState};
 
@@ -13,8 +13,8 @@ impl CgolController {
         CgolController { game }
     }
 
-    pub fn event<E: GenericEvent>(&mut self, e: &E) {
-
+    pub fn update(&mut self, _args: UpdateArgs) {
+        self.game.update();
     }
 
     pub fn get_state(&self) -> &GameState {
