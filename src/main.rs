@@ -17,7 +17,6 @@ use opengl_graphics::{GlGraphics, OpenGL};
 
 use view::{CgolView, CgolViewSettings};
 use controller::CgolController;
-use cgol::GameOfLifeSettings;
 
 fn main() {
     let opengl = OpenGL::V3_2;
@@ -30,13 +29,12 @@ fn main() {
     let mut events = Events::new(event_settings);
     let mut gl = GlGraphics::new(opengl);
 
-    let game_settings = GameOfLifeSettings::from_file("resources/initial.state").unwrap();
+    let mut controller = CgolController::new();
 
-    let (rows, _) = game_settings.get_dimensions();
+    let (rows, _) = controller.get_world_dimensions();
     let view_settings = CgolViewSettings::new()
         .cells_per_row(rows);
     let view = CgolView::new(view_settings);
-    let mut controller = CgolController::new(game_settings);
 
     while let Some(e) = events.next(&mut window) {
         if let Some(args) = e.update_args() {
