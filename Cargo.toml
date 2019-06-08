@@ -1,6 +1,6 @@
 [package]
 name = "cgol-app"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Nathan Mertins <nwmertins@gmail.com>"]
 edition = "2018"
 
@@ -9,4 +9,4 @@ piston = "0.42.0"
 pistoncore-glutin_window = "0.54.0"
 piston2d-graphics = "0.30.0"
 piston2d-opengl_graphics = "0.59.0"
-cgol = { git = "https://github.com/nmertins/cgol-rs.git", tag = "v0.1.0" }
+cgol = { git = "https://github.com/nmertins/cgol-rs.git", tag = "v0.1.1" }
