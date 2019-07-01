@@ -106,7 +106,7 @@ version = "0.1.1"
 source = "git+https://github.com/nmertins/cgol-rs.git?tag=v0.1.1#2c5d6fca3914e37e5d40fe817d132437e1b3c444"
 
 [[package]]
-name = "cgol-app"
+name = "cgol-piston"
 version = "0.1.1"
 dependencies = [
  "cgol 0.1.1 (git+https://github.com/nmertins/cgol-rs.git?tag=v0.1.1)",

@@ -1,5 +1,5 @@
 [package]
-name = "cgol-app"
+name = "cgol-piston"
 version = "0.1.1"
 authors = ["Nathan Mertins <nwmertins@gmail.com>"]
 edition = "2018"
